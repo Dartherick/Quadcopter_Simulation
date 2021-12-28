@@ -6,7 +6,7 @@ class Quadricopter_Drone():
 		'''
 		Para enlazar coppelia sim con el codigo realizado en python,coloca la siguiente funcion en un script en coppelia
 			simExtRemoteApiStart(Port)
-		Donde Port tiene que ser exactamente el mismo colocado en python
+		Donde Port tiene que ser esxactamente el mismo colocado en python
 		'''
 		sim.simxFinish(-1) #Cerrando cualquier comunicacion previamente abierta
 		self.clientID = sim.simxStart('127.0.0.1',Port,True,True,5000,5) #Conectando coppelia con el codigo
@@ -37,8 +37,3 @@ class Quadricopter_Drone():
 		sim.simxReadProximitySensor(self.clientID,self.BAproxSensor,sim.simx_opmode_streaming)[-1]
 
 		sleep(0.02)
-
-
-class Windows():
-	def __init__(self):
-		pass
