@@ -11,18 +11,17 @@ class Quadricopter_Drone():
 		sim.simxFinish(-1) #Cerrando cualquier comunicacion previamente abierta
 		self.clientID = sim.simxStart('127.0.0.1',Port,True,True,5000,5) #Conectando coppelia con el codigo
 
-		if self.clientID!=-1:
+		if self.clientID != -1:
 			print ("Connected to remote API server")
 			sim.simxStartSimulation(self.clientID,sim.simx_opmode_oneshot)
 		else:
 			print("Not connected to remote API server")
 			exit()
 
-	def Handles(self): 	#Funcion para obtener los handles
-		pass
-		self.Motor = sim.simxGetObjectHandle(self.clientID, "Name", sim.simx_opmode_blocking)[-1]
+	def Handles(self, Dummy): 	#Funcion para obtener los handles
+		self.Dummy = sim.simxGetObjectHandle(self.clientID, Dummy, sim.simx_opmode_blocking)[-1]
 
-		self.__InitalizeSensors()
+		#self.__InitalizeSensors()
 
 	def __InitalizeSensors(self):
 		'''Funcion para inicializar los sensores de vision
@@ -37,3 +36,6 @@ class Quadricopter_Drone():
 		sim.simxReadProximitySensor(self.clientID,self.BAproxSensor,sim.simx_opmode_streaming)[-1]
 
 		sleep(0.02)
+
+		def SetPosition(self,Position):
+			sim.simxSetObjectPosition(self.ClientID, self.Dummy, -1, Position)
