@@ -1,22 +1,10 @@
 import sim
 from time import sleep
 
-class Quadricopter_Drone():
-	def __init__(self,Port):
-		'''
-		Para enlazar coppelia sim con el codigo realizado en python,coloca la siguiente funcion en un script en coppelia
-			simExtRemoteApiStart(Port)
-		Donde Port tiene que ser esxactamente el mismo colocado en python
-		'''
-		sim.simxFinish(-1) #Cerrando cualquier comunicacion previamente abierta
-		self.clientID = sim.simxStart('127.0.0.1',Port,True,True,5000,5) #Conectando coppelia con el codigo
-
-		if self.clientID != -1:
-			print ("Connected to remote API server")
-			sim.simxStartSimulation(self.clientID,sim.simx_opmode_oneshot)
-		else:
-			print("Not connected to remote API server")
-			exit()
+class Quadcopter_Drone():
+	def __init__(self,ClientID,Area):
+		self.ClientID = ClientID
+		self.Size = Area
 
 	def Handles(self, Dummy): 	#Funcion para obtener los handles
 		self.Dummy = sim.simxGetObjectHandle(self.clientID, Dummy, sim.simx_opmode_blocking)[-1]
