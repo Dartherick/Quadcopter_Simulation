@@ -3,7 +3,7 @@ from time import sleep
 import numpy as np
 import cv2
 
-Scale = 5
+Scale = 10
 
 '''
 Para enlazar coppelia sim con el codigo realizado en python,coloca la siguiente funcion en un script en coppelia
@@ -26,7 +26,6 @@ VisionSensor = sim.simxGetObjectHandle(clientID, 'Vision', sim.simx_opmode_block
 sim.simxGetVisionSensorImage(clientID,VisionSensor,0,sim.simx_opmode_streaming)
 sleep(1)
 _,Resolution,_ = sim.simxGetVisionSensorImage(clientID,VisionSensor,0,sim.simx_opmode_buffer)
-print(Resolution*3)
 
 while True:
 	_, _, RGB = sim.simxGetVisionSensorImage(clientID,VisionSensor,0,sim.simx_opmode_buffer) 
@@ -35,7 +34,7 @@ while True:
 	Img = cv2.cvtColor(Img,cv2.COLOR_BGR2RGB)			#Change BGR to RGB	
 	Img = cv2.resize(Img,np.array(Resolution)*Scale)	#Scale the image
 	cv2.imshow('Thermal camera',Img)
-
+	
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
 
